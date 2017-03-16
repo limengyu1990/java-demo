@@ -1,3 +1,2 @@
 # java-demo
-
-jave demo
+java demo 
