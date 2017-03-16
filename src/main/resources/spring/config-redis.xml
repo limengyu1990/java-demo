@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:c="http://www.springframework.org/schema/c" xmlns:context="http://www.springframework.org/schema/context" xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:redis="http://www.springframework.org/schema/redis" xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/redis http://www.springframework.org/schema/redis/spring-redis.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+
+    <bean id="redisServiceRegListener" class="com.ikang.appService.exp.listener.RedisServiceRegListener"></bean>
+
+    <bean id="medGuideConsumer" class="org.springframework.data.redis.listener.adapter.MessageListenerAdapter">
+        <constructor-arg>
+            <bean class="com.ikang.appService.exp.listener.MedGuideConsumer" />
+        </constructor-arg>
+    </bean>
+    <bean id="guideChannel" class="org.springframework.data.redis.listener.ChannelTopic">
+        <constructor-arg value="guide_channel" />
+    </bean>
+    <bean id="firstMedGuideChannel" class="org.springframework.data.redis.listener.ChannelTopic">
+        <constructor-arg value="first_guide_channel" />
+    </bean>
+    <bean id="medGuideAppointmentStatusConsumer" class="org.springframework.data.redis.listener.adapter.MessageListenerAdapter">
+        <constructor-arg>
+            <bean class="com.ikang.appService.exp.listener.MedGuideAppointmentStatusConsumer" />
+        </constructor-arg>
+    </bean>
+    <bean id="medGuideMessageConsumer" class="org.springframework.data.redis.listener.adapter.MessageListenerAdapter">
+        <constructor-arg>
+            <bean class="com.ikang.appService.exp.listener.MedGuideMessageConsumer" />
+        </constructor-arg>
+    </bean>
+    <bean id="medGuideThirdPartyPushConsumer" class="org.springframework.data.redis.listener.adapter.MessageListenerAdapter">
+        <constructor-arg>
+            <bean class="com.ikang.appService.exp.listener.MedGuideThirdPartyPushConsumer" />
+        </constructor-arg>
+    </bean>
+    <bean id="nextMedGuideConsumer" class="org.springframework.data.redis.listener.adapter.MessageListenerAdapter">
+        <constructor-arg>
+            <bean class="com.ikang.appService.exp.listener.NextMedGuideConsumer" />
+        </constructor-arg>
+    </bean>
+    <bean id="guideNextChannel" class="org.springframework.data.redis.listener.ChannelTopic">
+        <constructor-arg value="guide_next_channel" />
+    </bean>
+</beans>
